@@ -1,0 +1,53 @@
+#ignore thumbnails created by windows
+Thumbs.db
+#ignore Mac junk files
+.DS_Store
+#Ignore files build by Visual Studio
+*.obj
+*.exe
+*.pdb
+*.user
+*.aps
+*.pch
+*.vspscc
+*_i.c
+*_p.c
+*.ncb
+*.suo
+*.tlb
+*.tlh
+*.bak
+*.cache
+*.ilk
+*.log
+*.psess
+*.vsp
+*.vspx
+*.backup
+[Bb]in
+[Dd]ebug*/
+*.lib
+*.sbr
+obj/
+_ReSharper*/
+[Tt]est[Rr]esult*
+*.mdf
+*.ldf
+files/
+packages/
+90.CRT.manifest
+deployableAssemblies/x86/sqlceqp40.dll'
+*~lock*
+#Ignore HelpPage generated files
+*.pp
+api_documentation.xml
+packages/
+*.nupkg
+*.jtconfig
+prince_log.txt
+!ExternalLibs/Chutzpah/*
+*/.idea
+_Chutzpah.*.test.html
+/.idea
+*.map
+/WebEssentials-Settings.json
