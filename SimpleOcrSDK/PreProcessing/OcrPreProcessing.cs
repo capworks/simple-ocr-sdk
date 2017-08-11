@@ -26,10 +26,8 @@ namespace PreProcessing
         {
             var src = new Bitmap(imageFileStream);
 
-            if (_imagePreProcessingUtils.AdjustImageOrientation(src))
-            {
-                imageFileStream = _getBitmapAsStream.WithMaxLength(3900000, imageFormat, src);
-            }
+            _imagePreProcessingUtils.AdjustImageOrientation(src);
+            imageFileStream = _getBitmapAsStream.WithMaxLength(3900000, imageFormat, src);
 
             imageFileStream.Seek(0, SeekOrigin.Begin);
             return new PreprocessedResult
