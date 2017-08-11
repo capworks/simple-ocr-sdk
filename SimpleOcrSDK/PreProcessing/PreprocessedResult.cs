@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using OcrMetadata;
 using OcrMetadata.PreProcessing;
 
 namespace PreProcessing
