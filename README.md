@@ -64,20 +64,53 @@ public class GoogleOcrResult
 As the name says ```RawResult``` is the raw Google Vision API result. It contains all the result data received from the API.
 
 ### FormattedResult
-The result is formatted into Lines, Sentences and Words.
+The result is formatted into Lines, Sentences and Words. Words and sentences contains relative coordinates.
+
+```cs
+public class ImageContent
+{
+    /// <summary>
+    /// Height of the image (viewing orientation taken into account)
+    /// </summary>
+    public decimal Height { get; protected set; }
+
+    /// <summary>
+    /// Width of the image (viewing orientation taken into account)
+    /// </summary>
+    public decimal Width { get; protected set; }
+
+    /// <summary>
+    /// All sentences found on the image
+    /// </summary>
+    public List<Sentence> Sentences { get; }
+
+    /// <summary>
+    /// All words found on the image.
+    /// </summary>
+    public List<Word> Words { get;  }
+
+    /// <summary>
+    /// All lines found on the image. 
+    /// Dictionary with zero index line numbers as key, and list of sentences as value.
+    /// </summary>
+    public Dictionary<int, List<Sentence>> Lines { get; set; }
+```
 
 A Line consist of a number of one or more senteces and a sentece consist of one or more words.
 
 Example of Words:
 
+![alt text](https://github.com/DineroRegnskab/simple-ocr-sdk/blob/master/images/receipt%20explained%20words.jpg "Words")
 
 
 Example of Senteces:
 
+![alt text](https://github.com/DineroRegnskab/simple-ocr-sdk/blob/master/images/receipt%20explained%20sentences.jpg "Sentences")
 
 
 Example of Lines:
 
+![alt text](https://github.com/DineroRegnskab/simple-ocr-sdk/blob/master/images/receipt%20explained%20lines.jpg "Lines")
 
 
 
