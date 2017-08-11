@@ -1,6 +1,6 @@
 using System;
 
-namespace SimpleOcrSDK.Exceptions
+namespace SimpleGoogleOcrSDK.Exceptions
 {
     public class GoogleCoordinateException : Exception
     {

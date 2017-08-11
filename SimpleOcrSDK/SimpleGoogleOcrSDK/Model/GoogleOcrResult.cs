@@ -1,7 +1,6 @@
-using OcrMetadata;
 using OcrMetadata.Model;
 
-namespace SimpleOcrSDK.Model
+namespace SimpleGoogleOcrSDK.Model
 {
     public class GoogleOcrResult
     {

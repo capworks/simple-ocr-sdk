@@ -54,9 +54,9 @@
       <Project>{E19DD532-61AF-4F03-93AB-58A5A3AE93A4}</Project>
       <Name>OcrMetadata</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SimpleOcrSDK\SimpleOcrSDK.csproj">
+    <ProjectReference Include="..\SimpleGoogleOcrSDK\SimpleGoogleOcrSDK.csproj">
       <Project>{A64BC1BA-0EC8-4155-834D-3C85F2E31282}</Project>
-      <Name>SimpleOcrSDK</Name>
+      <Name>SimpleGoogleOcrSDK</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

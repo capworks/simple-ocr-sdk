@@ -1,4 +1,4 @@
-﻿namespace SimpleOcrSDK
+﻿namespace SimpleGoogleOcrSDK
 {
     public interface IGoogleOcrConfigurations
     {

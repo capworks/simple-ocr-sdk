@@ -2,7 +2,7 @@
 using System.Linq;
 using Google.Apis.Vision.v1.Data;
 
-namespace SimpleOcrSDK.Model
+namespace SimpleGoogleOcrSDK.Model
 {
     public class RawGoogleOcrResult
     {

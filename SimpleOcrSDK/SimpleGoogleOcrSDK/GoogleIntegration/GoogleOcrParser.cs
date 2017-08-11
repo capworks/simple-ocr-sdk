@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Google.Apis.Vision.v1.Data;
 using OcrMetadata.Model;
-using SimpleOcrSDK.Model;
+using SimpleGoogleOcrSDK.Model;
 using Word = OcrMetadata.Model.Word;
 
-namespace SimpleOcrSDK.GoogleIntegration
+namespace SimpleGoogleOcrSDK.GoogleIntegration
 {
     internal class GoogleOcrParser
     {

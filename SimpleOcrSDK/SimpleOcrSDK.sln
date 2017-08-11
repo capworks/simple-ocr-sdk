@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleOcrSDK", "SimpleOcrSDK\SimpleOcrSDK.csproj", "{A64BC1BA-0EC8-4155-834D-3C85F2E31282}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OcrMetadata", "OcrMetadata\OcrMetadata.csproj", "{E19DD532-61AF-4F03-93AB-58A5A3AE93A4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo", "Demo\Demo.csproj", "{D7E2F0DB-7829-44BC-A1F4-8C6A1AB85FA6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PreProcessing", "PreProcessing\PreProcessing.csproj", "{E0153AF4-F721-4AB6-8E2A-0334EA922827}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleGoogleOcrSDK", "SimpleGoogleOcrSDK\SimpleGoogleOcrSDK.csproj", "{A64BC1BA-0EC8-4155-834D-3C85F2E31282}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A64BC1BA-0EC8-4155-834D-3C85F2E31282}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A64BC1BA-0EC8-4155-834D-3C85F2E31282}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A64BC1BA-0EC8-4155-834D-3C85F2E31282}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A64BC1BA-0EC8-4155-834D-3C85F2E31282}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E19DD532-61AF-4F03-93AB-58A5A3AE93A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E19DD532-61AF-4F03-93AB-58A5A3AE93A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E19DD532-61AF-4F03-93AB-58A5A3AE93A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +29,10 @@ Global
 		{E0153AF4-F721-4AB6-8E2A-0334EA922827}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0153AF4-F721-4AB6-8E2A-0334EA922827}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E0153AF4-F721-4AB6-8E2A-0334EA922827}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A64BC1BA-0EC8-4155-834D-3C85F2E31282}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A64BC1BA-0EC8-4155-834D-3C85F2E31282}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A64BC1BA-0EC8-4155-834D-3C85F2E31282}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A64BC1BA-0EC8-4155-834D-3C85F2E31282}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

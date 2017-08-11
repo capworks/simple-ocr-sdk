@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Google.Apis.Vision.v1;
 using Google.Apis.Vision.v1.Data;
 
-namespace SimpleOcrSDK.GoogleIntegration
+namespace SimpleGoogleOcrSDK.GoogleIntegration
 {
     internal static class GoogleVisionExtension
     {

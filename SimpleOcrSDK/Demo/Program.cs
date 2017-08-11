@@ -2,7 +2,7 @@
 using System.IO;
 using System.Threading.Tasks;
 using OcrMetadata;
-using SimpleOcrSDK;
+using SimpleGoogleOcrSDK;
 
 namespace Demo
 {
@@ -26,7 +26,7 @@ namespace Demo
             }
         }
 
-        private static OcrEngine GetOcrEngine()
+        private static GoogleOcrEngine GetOcrEngine()
         {
             Console.WriteLine("Input google API key:");
             string apiKey = null;
@@ -35,19 +35,19 @@ namespace Demo
                 apiKey = Console.ReadLine();
             }
 
-            var ocr = OcrEngine.Build(new GoogleOcrConfigurations(apiKey, "OcrWrapperDemo"));
+            var ocr = GoogleOcrEngine.Build(new GoogleOcrConfigurations(apiKey, "OcrWrapperDemo"));
             Console.WriteLine("Ocr engine instantiated.");
             Console.WriteLine();
             return ocr;
         }
 
-        private static async Task PerformAction(OcrEngine ocr, string file)
+        private static async Task PerformAction(GoogleOcrEngine googleOcr, string file)
         {
             try
             {
                 Console.WriteLine();
                 Console.WriteLine("Processing file...");
-                var imageContent = await ocr.OcrImage(file, GetImageFormat(file));
+                var imageContent = await googleOcr.OcrImage(file, GetImageFormat(file));
 
                 if (imageContent.TextFound())
                 {
