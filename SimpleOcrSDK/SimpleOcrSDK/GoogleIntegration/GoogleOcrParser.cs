@@ -55,16 +55,7 @@ namespace SimpleOcrSDK.GoogleIntegration
 
             if (xArray.Count() < 2 || yArray.Count() < 2)
             {
-                if (xArray.Count() == 1 || yArray.Count() == 1)
-                    return null;
-
-                var str = "";
-                for (var i = 0; i < (vertices?.Count ?? 0); i++)
-                {
-                    str += $"\nIndex {i} [X: '{vertices[i].X}'] [Y: '{vertices[i].Y}']";
-                }
-
-                throw new GoogleCoordinateException($"Could not get coordinates for Google word: '{arg.Description}'.\nVertices count: {vertices.Count}. " + str);
+                return null;
             }
 
             return new GoogleWord()
