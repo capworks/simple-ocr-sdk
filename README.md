@@ -7,6 +7,16 @@ Each OCR provider is a bit different, and like to sort their outputs in their ow
 
 Hopefully this SDK can help you skip the boring stuff and get straight to developing your application.
 
+### How does it work?
+The SDK handles the EXIF orientation, and compression if nessesary.
+The API result will be transformed into a metadata result model with relative coordinates, that will make it easy for you to highlight your findings in your UI.
+
+### Limitations
+The current SDK support Png, jpeg and jpg.
+
+The vision API does not support pdf's. Pdf's need to be converted into images first.
+Some PDF's has readable content and can be processed more accurate this way, I recommend using PdfBox. Next expansion to this SDK will be a PDF module and a Azure Vision API.
+
 ## Example
 There is a demo app demonstrating how to get a OCR result using Google's vision API.
 https://github.com/DineroRegnskab/simple-ocr-sdk/tree/master/SimpleOcrSDK/Demo
@@ -38,16 +48,6 @@ ImageFormatEnum imageFormat = ImageFormatEnum.Jpeg; //Depends on your image
 GoogleOcrResult imageContent = await googleOcr.OcrImage(myImageStream, imageFormat);
 string textInFile = imageContent.TextFound()? imageContent.FormattedResult.GetPlainTextWithLineBreaks() : "";
 ```
-
-## How does it work?
-The SDK handles the EXIF orientation, and compression if nessesary.
-The API result will be transformed into a metadata result model with relative coordinates, that will make it easy for you to highlight your findings in your UI.
-
-## Limitations
-The current SDK support Png, jpeg and jpg.
-
-The vision API does not support pdf's. Pdf's need to be converted into images first.
-Some PDF's has readable content and can be processed more accurate this way, I recommend using PdfBox. Next expansion to this SDK will be a PDF module and a Azure Vision API.
 
 
 ## Result model explained
