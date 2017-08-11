@@ -2,9 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Google.Apis.Vision.v1.Data;
-using OcrMetadata;
 using OcrMetadata.Model;
-using SimpleOcrSDK.Exceptions;
 using SimpleOcrSDK.Model;
 using Word = OcrMetadata.Model.Word;
 
