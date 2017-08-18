@@ -4,11 +4,11 @@ namespace OcrMetadata.Model
 {
     public class Coordinate
     {
-        public double X { get; set; }
-        public double Y { get; set; }
+        public double X { get; }
+        public double Y { get; }
 
-        public double Height { get; protected set; }
-        public double Width { get; protected set; }
+        public double Height { get; }
+        public double Width { get; }
 
         public Coordinate(double x, double y, double width, double height)
         {
