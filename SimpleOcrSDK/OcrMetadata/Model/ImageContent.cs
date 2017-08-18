@@ -7,16 +7,6 @@ namespace OcrMetadata.Model
     public class ImageContent
     {
         /// <summary>
-        /// Height of the image (viewing orientation taken into account)
-        /// </summary>
-        public decimal Height { get; protected set; }
-
-        /// <summary>
-        /// Width of the image (viewing orientation taken into account)
-        /// </summary>
-        public decimal Width { get; protected set; }
-
-        /// <summary>
         /// All sentences found on the image
         /// </summary>
         public List<Sentence> Sentences { get; }
@@ -31,10 +21,8 @@ namespace OcrMetadata.Model
         /// </summary>
         public Dictionary<int, List<Sentence>> Lines { get; set; }
 
-        public ImageContent(List<Sentence> sentences, int height, int width)
+        public ImageContent(List<Sentence> sentences)
         {
-            Height = height;
-            Width = width;
             Sentences = sentences ?? throw new ArgumentNullException(nameof(sentences));
             Words = Sentences.SelectMany(x => x.Words).ToList();
             Lines = Sentences.GroupBy(x => x.Line).ToDictionary(g => g.Key, g => g.ToList());

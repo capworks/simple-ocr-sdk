@@ -13,7 +13,7 @@ namespace SimpleGoogleOcrSDK.GoogleIntegration
         public ImageContent Execute(RawGoogleOcrResult output, int imgHeight, int imgWidth)
         {
             var sentences = new List<Sentence>();
-            if (!output.TextFound()) return new ImageContent(sentences, imgHeight, imgWidth);
+            if (!output.TextFound()) return new ImageContent(sentences);
 
             var words = output?.EntityAnnotations?.ToList().Skip(1).Select(AsWord).Where(x => x != null).OrderBy(x => x.Top).ToList();
             var lines = new Dictionary<Point, List<GoogleWord>>();
@@ -41,7 +41,7 @@ namespace SimpleGoogleOcrSDK.GoogleIntegration
                 lineCount++;
             }
 
-            return new ImageContent(sentences, imgHeight, imgWidth);
+            return new ImageContent(sentences);
         }
 
         private static GoogleWord AsWord(EntityAnnotation arg)
