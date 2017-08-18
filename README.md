@@ -113,6 +113,9 @@ Example of Lines:
 ![alt text](https://github.com/DineroRegnskab/simple-ocr-sdk/blob/master/images/receipt%20explained%20lines.jpg "Lines")
 
 
+All of it together:
+
+![alt text](https://github.com/DineroRegnskab/simple-ocr-sdk/blob/master/images/receipt%20explained%20-%20all.jpg "Words, Sentences and Lines")
 
 
 ## License
