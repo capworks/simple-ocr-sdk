@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PreProcessing", "PreProcess
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleGoogleOcrSDK", "SimpleGoogleOcrSDK\SimpleGoogleOcrSDK.csproj", "{A64BC1BA-0EC8-4155-834D-3C85F2E31282}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PdfOcrSDK", "PdfOcrSDK\PdfOcrSDK.csproj", "{9199D9A0-73EB-491D-91A9-6541DBC5CEF0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{A64BC1BA-0EC8-4155-834D-3C85F2E31282}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A64BC1BA-0EC8-4155-834D-3C85F2E31282}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A64BC1BA-0EC8-4155-834D-3C85F2E31282}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9199D9A0-73EB-491D-91A9-6541DBC5CEF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9199D9A0-73EB-491D-91A9-6541DBC5CEF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9199D9A0-73EB-491D-91A9-6541DBC5CEF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9199D9A0-73EB-491D-91A9-6541DBC5CEF0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
