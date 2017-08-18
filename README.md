@@ -12,7 +12,7 @@ The SDK handles the EXIF orientation, and compression if nessesary.
 The API result will be transformed into a metadata result model with relative coordinates, that will make it easy for you to highlight your findings in your UI.
 
 ### Limitations
-The current SDK support Png, jpeg and jpg.
+The current SDK support png, jpeg and jpg.
 
 The vision API does not support pdf's. Pdf's need to be converted into images first.
 Some PDF's has readable content and can be processed more accurate this way, I recommend using PdfBox. Next expansion to this SDK will be a PDF module and a Azure Vision API.
