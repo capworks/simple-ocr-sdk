@@ -118,6 +118,24 @@ All of it together:
 ![alt text](https://github.com/DineroRegnskab/simple-ocr-sdk/blob/master/images/receipt%20explained%20-%20all.jpg "Words, Sentences and Lines")
 
 
+#### Coordinates
+```
+public class Coordinate
+{
+    public double X { get; }
+    public double Y { get; }
+    public double Height { get; }
+    public double Width { get; }
+}
+```
+
+Words and sentences has relative coordinates. The x and y coordinates are measured from the top-left corner of the image. Meaning the fist pixel of the image is (0,0) and the last pixel is right-bottom corner (100,100).
+
+X and y, represent the top left corner of the word or sentence.
+
+![alt text](https://github.com/DineroRegnskab/simple-ocr-sdk/blob/master/images/coordinates.png "Coordinates")
+
+
 ## License
 
 MIT © [dineroregnskab](mailto:info@dinero.dk)
