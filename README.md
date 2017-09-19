@@ -14,8 +14,12 @@ The API result will be transformed into a metadata result model with relative co
 ### Limitations
 The current SDK support png, jpeg and jpg.
 
-The vision API does not support pdf's. Pdf's need to be converted into images first.
-Some PDF's has readable content and can be processed more accurate this way, I recommend using PdfBox. Next expansion to this SDK will be a PDF module and a Azure Vision API.
+Google Vision API does not support pdf's. You will need to transform it into a picture before posting it. 
+You can do this with tools like Ghostscript or Doctoric. 
+If it's a readable pdf (not a picture pdf) you can use a tools like PdfBox to extract the text. If the pdf is correctly formatted it will in far the most cases give a more accurate result, then first converting to image and performing ocr. 
+Be aware that when extracting text from pdf, text embedded i pictures (logo, background, watermarks ect), will be missing from the result.
+
+The next expansion to this SDK will be a PDF module and a Azure Vision API.
 
 ## Example
 There is a demo app demonstrating how to get a OCR result using Google's vision API.
