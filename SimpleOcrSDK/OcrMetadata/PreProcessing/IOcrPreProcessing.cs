@@ -4,6 +4,6 @@ namespace OcrMetadata.PreProcessing
 {
     public interface IOcrPreProcessing
     {
-        IPreprocessedResult AjustOrientationAndSize(Stream imageFileStream, ImageFormatEnum imageFormat);
+        IPreprocessedResult AjustOrientationAndSize(Stream imageFileStream, FileFormatEnum fileFormat);
     }
 }
