@@ -1,21 +1,29 @@
+using System;
 using OcrMetadata.Model;
 
 namespace SimpleGoogleOcrSDK.Model
 {
-    public class GoogleOcrResult
+    public class GoogleOcrResult : OcrResult
     {
-        public GoogleOcrResult(ImageContent imageContent, RawGoogleOcrResult rawGoogleOcrResult)
+        protected GoogleOcrResult(TimeSpan processTime, ImageContent imageContent, Exception error,
+            RawGoogleOcrResult rawGoogleOcrResult) : base(processTime, imageContent, error)
         {
-            FormattedResult = imageContent;
             RawResult = rawGoogleOcrResult;
         }
 
-        public ImageContent FormattedResult { get; }
-        public RawGoogleOcrResult RawResult { get; }
-
-        public bool TextFound()
+        public static GoogleOcrResult CreateSuccesResult(TimeSpan processTime, ImageContent imageContent, RawGoogleOcrResult rawGoogleOcrResult)
         {
-            return RawResult.TextFound();
+            if (imageContent == null) throw new ArgumentNullException(nameof(imageContent));
+            if (rawGoogleOcrResult == null) throw new ArgumentNullException(nameof(rawGoogleOcrResult));
+            return new GoogleOcrResult(processTime, imageContent, null, rawGoogleOcrResult);
         }
+
+        public static GoogleOcrResult CreateErrorResult(TimeSpan processTime, Exception error)
+        {
+            if (error == null) throw new ArgumentNullException(nameof(error));
+            return new GoogleOcrResult(processTime, null, error, null);
+        }
+
+        public RawGoogleOcrResult RawResult { get; }
     }
 }

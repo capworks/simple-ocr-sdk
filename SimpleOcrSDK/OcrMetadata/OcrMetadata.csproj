@@ -43,7 +43,8 @@
   <ItemGroup>
     <Compile Include="Model\Coordinate.cs" />
     <Compile Include="Model\ImageContent.cs" />
-    <Compile Include="ImageFormatEnum.cs" />
+    <Compile Include="FileFormatEnum.cs" />
+    <Compile Include="Model\IOcrResult.cs" />
     <Compile Include="PreProcessing\IOcrPreProcessing.cs" />
     <Compile Include="PreProcessing\IPreprocessedResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
