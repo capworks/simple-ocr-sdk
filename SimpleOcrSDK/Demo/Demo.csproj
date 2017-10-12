@@ -54,6 +54,10 @@
       <Project>{E19DD532-61AF-4F03-93AB-58A5A3AE93A4}</Project>
       <Name>OcrMetadata</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PdfOcrSDK\PdfOcrSDK.csproj">
+      <Project>{9199D9A0-73EB-491D-91A9-6541DBC5CEF0}</Project>
+      <Name>PdfOcrSDK</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SimpleGoogleOcrSDK\SimpleGoogleOcrSDK.csproj">
       <Project>{A64BC1BA-0EC8-4155-834D-3C85F2E31282}</Project>
       <Name>SimpleGoogleOcrSDK</Name>
