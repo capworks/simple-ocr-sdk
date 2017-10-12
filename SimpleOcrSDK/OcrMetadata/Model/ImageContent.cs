@@ -61,6 +61,5 @@ namespace OcrMetadata.Model
         {
             return Sentences.Any();
         }
-       
     }
 }
