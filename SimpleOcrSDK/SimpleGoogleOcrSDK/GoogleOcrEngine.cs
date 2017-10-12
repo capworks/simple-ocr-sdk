@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Threading.Tasks;
 using Google.Apis.Services;
@@ -33,14 +34,22 @@ namespace SimpleGoogleOcrSDK
         /// Prior to calling the API, this method will compress the image if to large for the API service, and will rotate it according to the EXIF orientation.
         /// </summary>
         /// <param name="filePath">File path</param>
-        /// <param name="imageFormatEnum">The image format. Needed for compression.</param>
+        /// <param name="fileFormatEnum">The image format. Needed for compression.</param>
         /// <returns></returns>
-        public async Task<GoogleOcrResult> OcrImage(string filePath, ImageFormatEnum imageFormatEnum)
+        public async Task<GoogleOcrResult> OcrImage(string filePath, FileFormatEnum fileFormatEnum)
         {
-            if(!File.Exists(filePath)) throw new FileNotFoundException("", filePath);
-            using (var stream = File.OpenRead(filePath))
+            var start = DateTime.Now;
+            try
             {
-                return await OcrImage(stream, imageFormatEnum);
+                if (!File.Exists(filePath)) throw new FileNotFoundException("", filePath);
+                using (var stream = File.OpenRead(filePath))
+                {
+                    return await DoOcr(stream, fileFormatEnum, start);
+                }
+            }
+            catch (Exception e)
+            {
+                return GoogleOcrResult.CreateErrorResult(DateTime.Now.Subtract(start), e);
             }
         }
 
@@ -49,19 +58,33 @@ namespace SimpleGoogleOcrSDK
         /// Prior to calling the API, this method will compress the image if to large for the API service, and will rotate it according to the EXIF orientation.
         /// </summary>
         /// <param name="imageAsStream">Image stream</param>
-        /// <param name="imageFormatEnum">The image format. Needed for compression.</param>
+        /// <param name="fileFormatEnum">The image format. Needed for compression.</param>
         /// <returns></returns>
-        public async Task<GoogleOcrResult> OcrImage(Stream imageAsStream, ImageFormatEnum imageFormatEnum)
+        public async Task<GoogleOcrResult> OcrImage(Stream imageAsStream, FileFormatEnum fileFormatEnum)
         {
-            var preprocessedResult = _ocrPreProcessing.AjustOrientationAndSize(imageAsStream, imageFormatEnum);
-            using (var stream = preprocessedResult.ImageFileStream)
+            return await DoOcr(imageAsStream, fileFormatEnum, DateTime.Now);
+        }
+
+        private async Task<GoogleOcrResult> DoOcr(Stream imageAsStream, FileFormatEnum fileFormatEnum, DateTime start)
+        {
+            try
             {
-                using (var service = VisionService())
+                var preprocessedResult = _ocrPreProcessing.AjustOrientationAndSize(imageAsStream, fileFormatEnum);
+                using (var stream = preprocessedResult.ImageFileStream)
                 {
-                    var entries = await service.RecognizeTextAsync(stream);
-                    var ocrResult = RawGoogleOcrResult.CreateFrom(entries);
-                    return new GoogleOcrResult(_googleOcrParser.Execute(ocrResult, preprocessedResult.NewImageHeight, preprocessedResult.NewImageWidth), ocrResult);
+                    using (var service = VisionService())
+                    {
+                        var entries = await service.RecognizeTextAsync(stream);
+                        var rawGoogleOcrResult = RawGoogleOcrResult.CreateFrom(entries);
+                        var content = _googleOcrParser.Execute(rawGoogleOcrResult, preprocessedResult.NewImageHeight,
+                            preprocessedResult.NewImageWidth);
+                        return GoogleOcrResult.CreateSuccesResult(DateTime.Now.Subtract(start), content, rawGoogleOcrResult);
+                    }
                 }
+            }
+            catch (Exception e)
+            {
+                return GoogleOcrResult.CreateErrorResult(DateTime.Now.Subtract(start), e);
             }
         }
 

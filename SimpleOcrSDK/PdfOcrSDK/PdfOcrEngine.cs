@@ -1,5 +1,6 @@
-﻿using System.IO;
-using OcrMetadata.Model;
+﻿using System;
+using System.IO;
+using PdfOcrSDK.Model;
 using PdfOcrSDK.PdfBoxIntegration;
 
 namespace PdfOcrSDK
@@ -25,10 +26,19 @@ namespace PdfOcrSDK
         /// </summary>
         /// <param name="filePathToPdf">File path</param>
         /// <returns></returns>
-        public ImageContent OcrPdf(string filePathToPdf)
+        public PdfResult OcrPdf(string filePathToPdf)
         {
-            if (!File.Exists(filePathToPdf)) throw new FileNotFoundException("", filePathToPdf);
-            return OcrPdf(File.ReadAllBytes(filePathToPdf));
+            var start = DateTime.Now;
+            try
+            {
+                if (!File.Exists(filePathToPdf)) throw new FileNotFoundException("", filePathToPdf);
+                return Execute(File.ReadAllBytes(filePathToPdf), start);
+            }
+
+            catch (Exception e)
+            {
+                return PdfResult.CreateErrorResult(DateTime.Now.Subtract(start), e);
+            }
         }
 
         /// <summary>
@@ -36,16 +46,24 @@ namespace PdfOcrSDK
         /// </summary>s
         /// <param name="bytes">byte array of the pdf</param>
         /// <returns></returns>
-        public ImageContent OcrPdf(byte[] bytes)
+        public PdfResult OcrPdf(byte[] bytes)
         {
-            return Execute(bytes);
+            return Execute(bytes, DateTime.Now);
         }
 
-        private ImageContent Execute(byte[] bytes)
+        private PdfResult Execute(byte[] bytes, DateTime start)
         {
-            var result = _extractPdf.Execute(bytes);
+            try
+            {
+                var result = _extractPdf.Execute(bytes);
 
-            return _parser.Execute(result);
+                var content = _parser.Execute(result);
+                return PdfResult.CreateSuccesResult(DateTime.Now.Subtract(start), content);
+            }
+            catch (Exception e)
+            {
+                return PdfResult.CreateErrorResult(DateTime.Now.Subtract(start), e);
+            }
         }
     }
 }
