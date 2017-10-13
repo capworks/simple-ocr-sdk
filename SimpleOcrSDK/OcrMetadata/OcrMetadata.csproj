@@ -41,10 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\ImageProportionsToLargeException.cs" />
+    <Compile Include="Exceptions\ImageProportionsToSmallException.cs" />
     <Compile Include="Model\Coordinate.cs" />
     <Compile Include="Model\ImageContent.cs" />
     <Compile Include="FileFormatEnum.cs" />
     <Compile Include="Model\IOcrResult.cs" />
+    <Compile Include="Exceptions\OcrException.cs" />
     <Compile Include="PreProcessing\IOcrPreProcessing.cs" />
     <Compile Include="PreProcessing\IPreprocessedResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
