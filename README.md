@@ -6,6 +6,7 @@ Simple OCR SDK is intended to make it easy to integrate OCR usage into you appli
 Each OCR provider is a bit different, and like to sort their outputs in their own unique way. When you are past integrating to the API, it's always a hurdle learning the new model and parsing it into something you can use for you futher processing og just plain text. This make the efford of testing an OCR provider to match your needs very time comsuming.
 
 Hopefully this SDK can help you skip the boring stuff and get straight to developing your application.
+The SDK supports Azure Vision API, Google Vision API for images and PdfBox for pdfs.
 
 ### How does it work?
 The SDK handles the EXIF orientation, and compression if nessesary (only images).
@@ -28,6 +29,8 @@ https://github.com/DineroRegnskab/simple-ocr-sdk/tree/master/SimpleOcrSDK/Demo
 
 
 ## How to init the engine
+Google and Azure' OCR requires subscriptions, but the pdf engine is free to use.
+For the image OCR you can freely choose whatever engine you prefer, the result might differ depending on engine and image quality.
 
 ### Google Vision API
 ```cs
