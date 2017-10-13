@@ -50,6 +50,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AzureVisionApiSimpleOcrSdk\AzureVisionApiSimpleOcrSdk.csproj">
+      <Project>{9723A3AC-9828-41EF-864F-0293666DDD08}</Project>
+      <Name>AzureVisionApiSimpleOcrSdk</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OcrMetadata\OcrMetadata.csproj">
       <Project>{E19DD532-61AF-4F03-93AB-58A5A3AE93A4}</Project>
       <Name>OcrMetadata</Name>
