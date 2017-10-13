@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.14
+VisualStudioVersion = 15.0.26730.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OcrMetadata", "OcrMetadata\OcrMetadata.csproj", "{E19DD532-61AF-4F03-93AB-58A5A3AE93A4}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleGoogleOcrSDK", "SimpleGoogleOcrSDK\SimpleGoogleOcrSDK.csproj", "{A64BC1BA-0EC8-4155-834D-3C85F2E31282}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PdfOcrSDK", "PdfOcrSDK\PdfOcrSDK.csproj", "{9199D9A0-73EB-491D-91A9-6541DBC5CEF0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureVisionApiSimpleOcrSdk", "AzureVisionApiSimpleOcrSdk\AzureVisionApiSimpleOcrSdk.csproj", "{9723A3AC-9828-41EF-864F-0293666DDD08}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,8 +41,15 @@ Global
 		{9199D9A0-73EB-491D-91A9-6541DBC5CEF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9199D9A0-73EB-491D-91A9-6541DBC5CEF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9199D9A0-73EB-491D-91A9-6541DBC5CEF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9723A3AC-9828-41EF-864F-0293666DDD08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9723A3AC-9828-41EF-864F-0293666DDD08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9723A3AC-9828-41EF-864F-0293666DDD08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9723A3AC-9828-41EF-864F-0293666DDD08}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DEA348D4-25B6-454D-85A0-283AE990EC10}
 	EndGlobalSection
 EndGlobal
