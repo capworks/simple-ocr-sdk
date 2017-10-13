@@ -8,26 +8,28 @@ Each OCR provider is a bit different, and like to sort their outputs in their ow
 Hopefully this SDK can help you skip the boring stuff and get straight to developing your application.
 
 ### How does it work?
-The SDK handles the EXIF orientation, and compression if nessesary.
+The SDK handles the EXIF orientation, and compression if nessesary (only images).
 The API result will be transformed into a metadata result model with relative coordinates, that will make it easy for you to highlight your findings in your UI.
 
 ### Limitations
-The current SDK support png, jpeg and jpg.
+The current SDK support png, jpeg, jpg and PDF (only 'readable' PDFs).
 
-Google Vision API does not support pdf's. You will need to transform it into a picture before posting it. 
-You can do this with tools like Ghostscript or Doctoric. 
-If it's a readable pdf (not a picture pdf) you can use a tools like PdfBox to extract the text. If the pdf is correctly formatted it will in far the most cases give a more accurate result, then first converting to image and performing ocr. 
-Be aware that when extracting text from pdf, text embedded i pictures (logo, background, watermarks ect), will be missing from the result.
+### PPFs
+The vision API does not support PDF's where the content is an image (if you open the pdf manually and cannot select text with the cursor). If it's an image PDF or a unsupported PDF type, then the PDF needs to be converted into an image and run throught a OCR engine to extract the text.
 
-The next expansion to this SDK will be a PDF module and a Azure Vision API.
+If the given PDF is not readble, the OcrResult.Error will contain a PdfNotReadableException.
+
+This SDK does not provide the means to convert from PDF to image, due to licenses limitations. If you are building an open source solution GhostScript is the most popular choice. For commercial use a less costly alternative is Docotic.Pdf. We have had very good experiences with them, here is an example of pdf-to-image: <a href ="https://bitmiracle.com/pdf-library/help/extract-images.aspx" target ="_blank">https://bitmiracle.com/pdf-library/help/extract-images.aspx </a>.
+
 
 ## Example
 There is a demo app demonstrating how to get a OCR result using Google's vision API.
 https://github.com/DineroRegnskab/simple-ocr-sdk/tree/master/SimpleOcrSDK/Demo
 
-## Usage
 
-How to init the engine.
+## How to init the engine
+
+### Google Vision API
 ```cs
 var apiKey = "[Your-google-vision-api-key]";
 var applicationName = "[Name-of-of-your-application-for-your-own-tracking-in-google]";
@@ -35,34 +37,107 @@ var applicationName = "[Name-of-of-your-application-for-your-own-tracking-in-goo
 var ocr = GoogleOcrEngine.Build(new GoogleOcrConfigurations(apiKey, applicationName));
 ```
 
-How to OCR a file from a path.
+### Azure Vision API
+```cs
+var subcriptionKey = "[Your-azure-subscription-key]";
+
+var ocr = AzureOcrEngine.Build(new AzureConfigurations(subcriptionKey));
+```
+
+### PdfBox 
+```cs
+var pdfEngine = PdfOcrEngine.Build()
+
+```
+
+## Usage
+
+### How to OCR a file
+You can do this with the Google, Azure or Pdf engine. The following example is with google, but the approach is the sa
+
+#### Image
+
+From File or Stream.
 ```cs
 string fullPathToImage = "C:\Ocr-images\my-test-img.png";
 ImageFormatEnum imageFormat = ImageFormatEnum.Png; //Depends on your image
 
-GoogleOcrResult imageContent = await googleOcr.OcrImage(filePath, imageFormat);
+// GOOGLE
+OcrResult googleResult = await googleOcr.OcrImage(filePath, imageFormat);
+
+// AZURE
+OcrResult azureResult = await azureOcr.OcrImage(filePath, imageFormat);
+string textInFile = azureResult.TextFound()? azureResult.FormattedResult.GetPlainTextWithLineBreaks() : "";
+```
+
+#### PDF
+From file or byte array.
+```cs
+string fullPathToImage = "C:\Ocr-images\my-test.pdf";
+ImageFormatEnum imageFormat = ImageFormatEnum.Pdf; 
+
+OcrResult imageContent = await pdfOcr.OcrPdf(filePath, imageFormat);
 string textInFile = imageContent.TextFound()? imageContent.FormattedResult.GetPlainTextWithLineBreaks() : "";
 ```
 
-How to OCR a file from Stream.
+### How to get data
 ```cs
-Stream myImageStream; //to be assigned by you
-ImageFormatEnum imageFormat = ImageFormatEnum.Jpeg; //Depends on your image
-
-GoogleOcrResult imageContent = await googleOcr.OcrImage(myImageStream, imageFormat);
-string textInFile = imageContent.TextFound()? imageContent.FormattedResult.GetPlainTextWithLineBreaks() : "";
+OcrResult ocrResult; //from whatever engine you prefer
+string textInFile = ocrResult.TextFound()? ocrResult.FormattedResult.GetPlainTextWithLineBreaks() : "";
 ```
 
-
-## Result model explained
-
+### Error handling
 ```cs
-public class GoogleOcrResult
+private static async Task PerformAction(OcrResult result)
 {
-    public ImageContent FormattedResult { get; }
-    public RawGoogleOcrResult RawResult { get; }
+    if (result.HasError)
+    {
+        if (result.Error is FileNotFoundException)
+        {
+            //Check you file path
+        }
+        else if(result.Error is PdfNotReadableException)
+        {
+            //Convert pdf to image and do Azure or Google ocr
+        }
+        else if(result.Error is ImageProportionsToSmallException)
+        {
+            //The Visions API need the image to be above a certain size before it makes sense to process
+            //For Azure the min. size is 50x50 pixels
+        }
+        else if(result.Error is ImageProportionsToLargeException)
+        {
+            //Down scale the image
+        }
+        else
+        {
+            //Handle exception (IO, Network, API exception ect.)
+        }
+    }
+    
+    if(!result.TextFound)
+    {
+        // Either the vision api could not find anything or what seemed like a readable pdf, 
+        // didn't contain any text
+    }
 }
 ```
+
+## Result model explained
+Depending on the type of OCR you will get a different implementation of OcrResult: GoogleOcrResult, AzureOcrResult eller PdfOcrResult.
+Azure and Google's results contain a 'RAW' model with the original data returned from the APIs. You only need to access the RAW results in case you need other data then mapped in the metadata model or get API specific properties.
+
+```cs   
+public abstract class OcrResult
+{
+    public TimeSpan ProcessTime { get; }
+    public ImageContent Content { get; }
+    public Exception Error { get; }
+    bool HasError { get; }
+    bool TextFound { get; }
+}
+```
+
 
 ### RawResult
 As the name says ```RawResult``` is the raw Google Vision API result. It contains all the result data received from the API.
@@ -73,16 +148,6 @@ The result is formatted into Lines, Sentences and Words. Words and sentences con
 ```cs
 public class ImageContent
 {
-    /// <summary>
-    /// Height of the image (viewing orientation taken into account)
-    /// </summary>
-    public decimal Height { get; protected set; }
-
-    /// <summary>
-    /// Width of the image (viewing orientation taken into account)
-    /// </summary>
-    public decimal Width { get; protected set; }
-
     /// <summary>
     /// All sentences found on the image
     /// </summary>
