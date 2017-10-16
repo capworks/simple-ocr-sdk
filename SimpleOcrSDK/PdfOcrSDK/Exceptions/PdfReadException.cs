@@ -1,8 +1,9 @@
 using System;
+using OcrMetadata.Exceptions;
 
 namespace PdfOcrSDK.Exceptions
 {
-    public class PdfReadException : Exception
+    public class PdfReadException : OcrException
     {
         public PdfReadException(string msg) : base(msg) { }
 

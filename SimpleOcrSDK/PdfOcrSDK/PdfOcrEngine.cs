@@ -34,7 +34,6 @@ namespace PdfOcrSDK
                 if (!File.Exists(filePathToPdf)) throw new FileNotFoundException("", filePathToPdf);
                 return Execute(File.ReadAllBytes(filePathToPdf), start);
             }
-
             catch (Exception e)
             {
                 return PdfResult.CreateErrorResult(DateTime.Now.Subtract(start), e);

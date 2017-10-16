@@ -113,6 +113,7 @@
     <Compile Include="Exceptions\PdfContentToShortException.cs" />
     <Compile Include="Exceptions\PdfNotReadableException.cs" />
     <Compile Include="Exceptions\PdfReadException.cs" />
+    <Compile Include="Model\PdfResult.cs" />
     <Compile Include="PdfOcrEngine.cs" />
     <Compile Include="PdfBoxIntegration\ExtractPdf.cs" />
     <Compile Include="Model\CharItem.cs" />

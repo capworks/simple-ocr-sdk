@@ -11,7 +11,7 @@ namespace SimpleGoogleOcrSDK.Model
             RawResult = rawGoogleOcrResult;
         }
 
-        public static GoogleOcrResult CreateSuccesResult(TimeSpan processTime, ImageContent imageContent, RawGoogleOcrResult rawGoogleOcrResult)
+        public static GoogleOcrResult CreateSuccessResult(TimeSpan processTime, ImageContent imageContent, RawGoogleOcrResult rawGoogleOcrResult)
         {
             if (imageContent == null) throw new ArgumentNullException(nameof(imageContent));
             if (rawGoogleOcrResult == null) throw new ArgumentNullException(nameof(rawGoogleOcrResult));

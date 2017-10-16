@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
+using AzureVisionApiSimpleOcrSdk;
 using OcrMetadata;
 using OcrMetadata.Model;
 using PdfOcrSDK;
@@ -13,13 +14,15 @@ namespace Demo
         static void Main(string[] args)
         {
             Console.WriteLine("###### OCR Wrapper demo project ######");
-            GoogleOcrEngine ocr = null; 
+            GoogleOcrEngine googleOcrEngine = null;
+            AzureOcrEngine azureOcrEngine = null;
+            string visionApiChoice = null;
 
             while (true)
             {
                 Console.WriteLine("Input file path:");
                 var userChoice = Console.ReadLine();
-                if (userChoice.ToLower().Equals("q"))
+                if (userChoice == null || userChoice.ToLower().Equals("q"))
                 {
                     return;
                 }
@@ -37,16 +40,38 @@ namespace Demo
                 }
                 else
                 {
-                    if (ocr == null)
+
+                    if (visionApiChoice == null)
                     {
-                        ocr = GetOcrEngine();
+                        Console.WriteLine("What vision API do you wish to use, Google or Azure?");
+                        while (string.IsNullOrWhiteSpace(visionApiChoice) ||
+                               (visionApiChoice != "google" && visionApiChoice != "azure"))
+                        {
+                            visionApiChoice = Console.ReadLine()?.ToLower();
+                        }
                     }
-                    PerformAction(DoGoogleOcr(ocr, imageFormat, userChoice)).ContinueWith(t => Pause()).Wait();
+
+                    if (visionApiChoice == "google")
+                    {
+                        if (googleOcrEngine == null)
+                        {
+                            googleOcrEngine = GetGoogleOcrEngine();
+                        }
+                        PerformAction(DoGoogleOcr(googleOcrEngine, imageFormat, userChoice)).ContinueWith(t => Pause()).Wait();
+                    }
+                    else if(visionApiChoice == "azure")
+                    {
+                        if (azureOcrEngine == null)
+                        {
+                            azureOcrEngine = GetAzureOcrEngine();
+                        }
+                        PerformAction(DoAzureOcr(azureOcrEngine, imageFormat, userChoice)).ContinueWith(t => Pause()).Wait();
+                    }
                 }
             }
         }
 
-        private static GoogleOcrEngine GetOcrEngine()
+        private static GoogleOcrEngine GetGoogleOcrEngine()
         {
             Console.WriteLine("To OCR process an image you need a google account and access to their vision API.");
             Console.WriteLine("Input google API key:");
@@ -57,7 +82,23 @@ namespace Demo
             }
 
             var ocr = GoogleOcrEngine.Build(new GoogleOcrConfigurations(apiKey, "OcrWrapperDemo"));
-            Console.WriteLine("Ocr engine instantiated.");
+            Console.WriteLine("Google ocr engine instantiated.");
+            Console.WriteLine();
+            return ocr;
+        }
+
+        private static AzureOcrEngine GetAzureOcrEngine()
+        {
+            Console.WriteLine("To OCR process an image with Azure Vision API you need a azure account and access to their vision API.");
+            Console.WriteLine("Input your Azure Vision API subscription key:");
+            string subscriptionKey = null;
+            while (string.IsNullOrWhiteSpace(subscriptionKey))
+            {
+                subscriptionKey = Console.ReadLine();
+            }
+
+            var ocr = AzureOcrEngine.Build(new AzureVisionConfigurations(subscriptionKey));
+            Console.WriteLine("Azure ocr engine instantiated.");
             Console.WriteLine();
             return ocr;
         }
@@ -65,6 +106,11 @@ namespace Demo
         private static async Task<OcrResult> DoGoogleOcr(GoogleOcrEngine googleOcrEngine, FileFormatEnum fileFormat, string file)
         {
             return await googleOcrEngine.OcrImage(file, fileFormat);
+        }
+
+        private static async Task<OcrResult> DoAzureOcr(AzureOcrEngine azureOcrEngine, FileFormatEnum fileFormat, string file)
+        {
+            return await azureOcrEngine.OcrImage(file, fileFormat);
         }
 
         private static async Task<OcrResult> DoPdfExtraction(string file)

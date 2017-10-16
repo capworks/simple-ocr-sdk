@@ -15,7 +15,7 @@ namespace SimpleGoogleOcrSDK.GoogleIntegration
             var sentences = new List<Sentence>();
             if (!output.TextFound()) return new ImageContent(sentences);
 
-            var words = output?.EntityAnnotations?.ToList().Skip(1).Select(AsWord).Where(x => x != null).OrderBy(x => x.Top).ToList();
+            var words = output?.EntityAnnotations?.ToList().Skip(1).Select(AsWord).Where(x => x != null).OrderBy(x => x.Top).ToList() ?? new List<GoogleWord>();
             var lines = new Dictionary<Point, List<GoogleWord>>();
             foreach (var word in words)
             {

@@ -78,7 +78,7 @@ namespace SimpleGoogleOcrSDK
                         var rawGoogleOcrResult = RawGoogleOcrResult.CreateFrom(entries);
                         var content = _googleOcrParser.Execute(rawGoogleOcrResult, preprocessedResult.NewImageHeight,
                             preprocessedResult.NewImageWidth);
-                        return GoogleOcrResult.CreateSuccesResult(DateTime.Now.Subtract(start), content, rawGoogleOcrResult);
+                        return GoogleOcrResult.CreateSuccessResult(DateTime.Now.Subtract(start), content, rawGoogleOcrResult);
                     }
                 }
             }
