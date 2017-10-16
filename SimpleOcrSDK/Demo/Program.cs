@@ -2,6 +2,8 @@
 using System.IO;
 using System.Threading.Tasks;
 using OcrMetadata;
+using OcrMetadata.Model;
+using PdfOcrSDK;
 using SimpleGoogleOcrSDK;
 
 namespace Demo
@@ -10,8 +12,8 @@ namespace Demo
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("###### Google OCR Wrapper demo project ######");
-            var ocr = GetOcrEngine();
+            Console.WriteLine("###### OCR Wrapper demo project ######");
+            GoogleOcrEngine ocr = null; 
 
             while (true)
             {
@@ -22,12 +24,31 @@ namespace Demo
                     return;
                 }
 
-                PerformAction(ocr, userChoice).ContinueWith(t => Pause()).Wait();
+                var imageFormat = GetImageFormat(userChoice);
+                if (imageFormat == FileFormatEnum.Unsupported)
+                {
+                    Console.WriteLine("Unsupported file format. Supported types are; jpg, jpeg, png and pdf.");
+                    continue;
+                }
+
+                if (imageFormat == FileFormatEnum.Pdf)
+                {
+                    PerformAction(DoPdfExtraction(userChoice)).ContinueWith(t => Pause()).Wait();
+                }
+                else
+                {
+                    if (ocr == null)
+                    {
+                        ocr = GetOcrEngine();
+                    }
+                    PerformAction(DoGoogleOcr(ocr, imageFormat, userChoice)).ContinueWith(t => Pause()).Wait();
+                }
             }
         }
 
         private static GoogleOcrEngine GetOcrEngine()
         {
+            Console.WriteLine("To OCR process an image you need a google account and access to their vision API.");
             Console.WriteLine("Input google API key:");
             string apiKey = null;
             while (string.IsNullOrWhiteSpace(apiKey))
@@ -41,53 +62,64 @@ namespace Demo
             return ocr;
         }
 
-        private static async Task PerformAction(GoogleOcrEngine googleOcr, string file)
+        private static async Task<OcrResult> DoGoogleOcr(GoogleOcrEngine googleOcrEngine, FileFormatEnum fileFormat, string file)
         {
-            try
-            {
-                Console.WriteLine();
-                Console.WriteLine("Processing file...");
-                var imageContent = await googleOcr.OcrImage(file, GetImageFormat(file));
+            return await googleOcrEngine.OcrImage(file, fileFormat);
+        }
 
-                if (imageContent.TextFound())
-                {
-                    Console.WriteLine("Following was returned from google vision api: ");
-                    Console.WriteLine(imageContent.FormattedResult.GetPlainTextWithLineBreaks());
-                }
+        private static async Task<OcrResult> DoPdfExtraction(string file)
+        {
+            return PdfOcrEngine.Build().OcrPdf(file);
+        }
+
+        private static async Task PerformAction(Task<OcrResult> action)
+        {
+            Console.WriteLine();
+            Console.WriteLine("Processing file...");
+            var result = await action;
+
+            if (result.HasError)
+            {
+                if (result.Error is FileNotFoundException)
+                    Console.WriteLine("File was not found please correct path and try again...");
                 else
                 {
-                    Console.WriteLine("No text found on image");
+                    Console.WriteLine("Something went wrong while processing image: ");
+                    Console.WriteLine(result.Error);
                 }
-            }
-            catch (FileNotFoundException)
-            {
-                Console.WriteLine("File was not found please correct path and try again...");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Something went wrong while processing image: ");
-                Console.WriteLine(e);
                 Console.ReadLine();
+            }
+            else if (result.TextFound)
+            {
+                Console.WriteLine("Following text was found: ");
+                Console.WriteLine(result.Content.GetPlainTextWithLineBreaks());
+            }
+            else
+            {
+                Console.WriteLine("No text found on image");
             }
         }
 
-        private static ImageFormatEnum GetImageFormat(string fileName)
+        private static FileFormatEnum GetImageFormat(string fileName)
         {
             var extension = Path.GetExtension(fileName);
             if (string.IsNullOrEmpty(extension))
-                throw new ArgumentException($"Unable to determine file extension for fileName: {fileName}");
+                return FileFormatEnum.Unsupported;
 
             switch (extension.ToLower())
             {
                 case @".jpg":
                 case @".jpeg":
-                    return ImageFormatEnum.Jpeg;
+                    return FileFormatEnum.Jpeg;
 
                 case @".png":
-                    return ImageFormatEnum.Png;
+                    return FileFormatEnum.Png;
+
+                case @".pdf":
+                    return FileFormatEnum.Pdf;
 
                 default:
-                    throw new ArgumentOutOfRangeException($"Unsuported image format for file: {fileName}");
+                    return FileFormatEnum.Unsupported;
             }
         }
 

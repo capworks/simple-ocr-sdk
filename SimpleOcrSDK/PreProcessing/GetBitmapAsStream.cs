@@ -9,14 +9,14 @@ namespace PreProcessing
 {
     internal interface IGetBitmapAsStream
     {
-        Stream WithMaxLength(int maxsize, ImageFormatEnum format, Bitmap src);
+        Stream WithMaxLength(int maxsize, FileFormatEnum format, Bitmap src);
     }
 
     internal class GetBitmapAsStream : IGetBitmapAsStream
     {
-        public Stream WithMaxLength(int maxsize, ImageFormatEnum imageFormat, Bitmap src)
+        public Stream WithMaxLength(int maxsize, FileFormatEnum fileFormat, Bitmap src)
         {
-            var format = GetImageFormat(imageFormat);
+            var format = GetImageFormat(fileFormat);
 
             Stream stream = new MemoryStream();
             src.Save(stream, format);
@@ -45,14 +45,14 @@ namespace PreProcessing
             return stream;
         }
 
-        private static ImageFormat GetImageFormat(ImageFormatEnum format)
+        private static ImageFormat GetImageFormat(FileFormatEnum format)
         {
             switch (format)
             {
-                case ImageFormatEnum.Jpeg:
+                case FileFormatEnum.Jpeg:
                     return ImageFormat.Jpeg;
 
-                case ImageFormatEnum.Png:
+                case FileFormatEnum.Png:
                     return ImageFormat.Png;
 
                 default:

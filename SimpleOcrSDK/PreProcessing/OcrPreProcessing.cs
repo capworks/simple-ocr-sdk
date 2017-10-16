@@ -22,12 +22,12 @@ namespace PreProcessing
             return new OcrPreProcessing(new ImagePreProcessingUtils(), new GetBitmapAsStream());
         }
 
-        public IPreprocessedResult AjustOrientationAndSize(Stream imageFileStream, ImageFormatEnum imageFormat)
+        public IPreprocessedResult AjustOrientationAndSize(Stream imageFileStream, FileFormatEnum fileFormat)
         {
             var src = new Bitmap(imageFileStream);
 
             _imagePreProcessingUtils.AdjustImageOrientation(src);
-            imageFileStream = _getBitmapAsStream.WithMaxLength(3900000, imageFormat, src);
+            imageFileStream = _getBitmapAsStream.WithMaxLength(3900000, fileFormat, src);
 
             imageFileStream.Seek(0, SeekOrigin.Begin);
             return new PreprocessedResult
