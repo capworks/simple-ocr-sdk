@@ -17,7 +17,7 @@ namespace AzureVisionApiSimpleOcrSdk.Integration.Parser
             foreach (var line in azureLines)
             {
                 var point = new Point { Top = line.Rectangle.Top, Bottom = line.Rectangle.Top + line.Rectangle.Height };
-                var parentLine = lines.Where(x => x.Key.IsWithinThisPoint(point))
+                var parentLine = lines.Where(x => x.Key.IsGivenPointWithinBounds(point))
                     .OrderBy(x => x.Key.Top)
                     .Select(x => x.Value)
                     .FirstOrDefault();
