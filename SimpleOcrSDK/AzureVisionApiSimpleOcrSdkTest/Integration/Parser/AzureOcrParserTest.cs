@@ -18,17 +18,17 @@ namespace AzureVisionApiSimpleOcrSdkTest.Integration.Parser
         private Mock<ITransformLinesIntoSentences> _transformLinesIntoSenteces;
         private Mock<ISortIntoLogicalLines> _sortIntoLogicalLines;
         private AzureOcrParser _target;
-        private Mock<IGetLinesOrDefaultOrderedByTopPosition> _getLinesOrDefaultOrderedByTopPosition;
+        private Mock<IGetLinesOrderedByTopPosition> _getLinesOrderedByTopPosition;
 
         [SetUp]
         public void Setup()
         {
             _transformLinesIntoSenteces = new Mock<ITransformLinesIntoSentences>();
             _sortIntoLogicalLines = new Mock<ISortIntoLogicalLines>();
-            _getLinesOrDefaultOrderedByTopPosition = new Mock<IGetLinesOrDefaultOrderedByTopPosition>();
+            _getLinesOrderedByTopPosition = new Mock<IGetLinesOrderedByTopPosition>();
 
             _target = new AzureOcrParser(_transformLinesIntoSenteces.Object, _sortIntoLogicalLines.Object,
-                _getLinesOrDefaultOrderedByTopPosition.Object);
+                _getLinesOrderedByTopPosition.Object);
         }
 
         [Test]
@@ -51,7 +51,7 @@ namespace AzureVisionApiSimpleOcrSdkTest.Integration.Parser
             int height = 100, width = 100;
 
             var azureLines = new List<Line>();
-            _getLinesOrDefaultOrderedByTopPosition.Setup(x => x.Execute(rawResult)).Returns(azureLines);
+            _getLinesOrderedByTopPosition.Setup(x => x.Execute(rawResult)).Returns(azureLines);
 
             var logicalLines = new Mock<IOrderedEnumerable<KeyValuePair<Point, List<Line>>>>().Object;
             _sortIntoLogicalLines.Setup(x => x.Execute(azureLines)).Returns(logicalLines);
@@ -64,6 +64,22 @@ namespace AzureVisionApiSimpleOcrSdkTest.Integration.Parser
 
             //Assert
             Assert.AreEqual(sentences, imageContent.Sentences);
+        }
+
+        [Test]
+        public void GivenEmptyOcrResult_WhenInvokingExecute_ThenGetLinesAndSortIntoLogicalLinesAndTransformIntoSentencesAreCalledAnImageContentIsReturned()
+        {
+            //Arrange
+            var rawResult = new RawAzureOcrResult();
+            int height = 100, width = 100;
+            _getLinesOrderedByTopPosition.Setup(x => x.Execute(rawResult)).Returns((List<Line>) null);
+
+            //Act
+            var imageContent = _target.Execute(rawResult, height, width);
+
+            //Assert
+            imageContent.Should().NotBeNull();
+            imageContent.Sentences.Should().BeEmpty();
         }
     }
 }

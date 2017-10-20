@@ -31,7 +31,7 @@ namespace AzureVisionApiSimpleOcrSdk
                     new TransformLinesIntoSentences(
                         new TransformAzureLineIntoSentence(
                             new AzureCreateRelativeCoordinate(new CreateRelativeCoordinate()))),
-                    new SortIntoLogicalLines(), new GetLinesOrDefaultOrderedByTopPosition()));
+                    new SortIntoLogicalLines(), new GetLinesOrderedByTopPosition()));
         }
 
         /// <summary>

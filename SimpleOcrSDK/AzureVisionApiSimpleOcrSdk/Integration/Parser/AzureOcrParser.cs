@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using AzureVisionApiSimpleOcrSdk.Model;
 using OcrMetadata.Model;
 
@@ -13,22 +14,25 @@ namespace AzureVisionApiSimpleOcrSdk.Integration.Parser
     {
         private readonly ITransformLinesIntoSentences _transformLinesIntoSentences;
         private readonly ISortIntoLogicalLines _sortIntoLogicalLines;
-        private readonly IGetLinesOrDefaultOrderedByTopPosition _getLinesOrDefaultOrderedByTopPosition;
+        private readonly IGetLinesOrderedByTopPosition _getLinesOrderedByTopPosition;
 
         public AzureOcrParser(ITransformLinesIntoSentences transformLinesIntoSentences,
             ISortIntoLogicalLines sortIntoLogicalLines,
-            IGetLinesOrDefaultOrderedByTopPosition getLinesOrDefaultOrderedByTopPosition)
+            IGetLinesOrderedByTopPosition getLinesOrderedByTopPosition)
         {
             _transformLinesIntoSentences = transformLinesIntoSentences;
             _sortIntoLogicalLines = sortIntoLogicalLines;
-            _getLinesOrDefaultOrderedByTopPosition = getLinesOrDefaultOrderedByTopPosition;
+            _getLinesOrderedByTopPosition = getLinesOrderedByTopPosition;
         }
 
         public ImageContent Execute(RawAzureOcrResult ocrOutput, int height, int width)
         {
             if (ocrOutput == null) throw new ArgumentNullException(nameof(ocrOutput));
 
-            var azureLines = _getLinesOrDefaultOrderedByTopPosition.Execute(ocrOutput);
+            var azureLines = _getLinesOrderedByTopPosition.Execute(ocrOutput);
+            if(azureLines == null)
+                return new ImageContent(new List<Sentence>());
+
             var lines = _sortIntoLogicalLines.Execute(azureLines);
             var sentences = _transformLinesIntoSentences.Execute(height, width, lines);
 
