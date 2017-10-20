@@ -7,7 +7,7 @@ namespace AzureVisionApiSimpleOcrSdk.Integration.Parser
 
         public bool IsWithinThisPoint(Point point)
         {
-            return Top <= point.Top && Bottom >= point.Bottom;
+            return point.Top <= Top && point.Bottom >= Bottom;
         }
     }
 }
