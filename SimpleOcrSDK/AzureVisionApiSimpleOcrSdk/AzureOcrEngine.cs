@@ -7,6 +7,7 @@ using AzureVisionApiSimpleOcrSdk.Model;
 using OcrMetadata;
 using OcrMetadata.Exceptions;
 using OcrMetadata.PreProcessing;
+using OcrMetadata.Tools;
 using PreProcessing;
 
 namespace AzureVisionApiSimpleOcrSdk
