@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PdfOcrSDK", "PdfOcrSDK\PdfO
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureVisionApiSimpleOcrSdk", "AzureVisionApiSimpleOcrSdk\AzureVisionApiSimpleOcrSdk.csproj", "{9723A3AC-9828-41EF-864F-0293666DDD08}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureVisionApiSimpleOcrSdkTest", "AzureVisionApiSimpleOcrSdkTest\AzureVisionApiSimpleOcrSdkTest.csproj", "{876C4F0D-DAEB-43C8-9E96-83B8D9250E1F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{9723A3AC-9828-41EF-864F-0293666DDD08}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9723A3AC-9828-41EF-864F-0293666DDD08}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9723A3AC-9828-41EF-864F-0293666DDD08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{876C4F0D-DAEB-43C8-9E96-83B8D9250E1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{876C4F0D-DAEB-43C8-9E96-83B8D9250E1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{876C4F0D-DAEB-43C8-9E96-83B8D9250E1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{876C4F0D-DAEB-43C8-9E96-83B8D9250E1F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
