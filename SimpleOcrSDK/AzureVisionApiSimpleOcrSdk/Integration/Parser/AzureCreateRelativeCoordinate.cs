@@ -13,12 +13,12 @@ namespace AzureVisionApiSimpleOcrSdk.Integration.Parser
             _createRelativeCoordinate = createRelativeCoordinate;
         }
 
-        public Coordinate Execute(Rectangle word, int imgWidth, int imgHeight)
+        public Coordinate Execute(Rectangle rectangle, int imgWidth, int imgHeight)
         {
-            double x = word.Left;
-            double y = word.Top;
-            double height = word.Height;
-            double width = word.Width;
+            double x = rectangle.Left;
+            double y = rectangle.Top;
+            double height = rectangle.Height;
+            double width = rectangle.Width;
 
             return _createRelativeCoordinate.Execute(x, y, height, width, imgHeight, imgWidth);
         }
