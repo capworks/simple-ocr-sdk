@@ -28,10 +28,10 @@ namespace AzureVisionApiSimpleOcrSdk
         {
             return new AzureOcrEngine(new AzureOcrApi(configurations), OcrPreProcessing.Build(),
                 new AzureOcrParser(
-                    new TransformLinesIntoSenteces(
+                    new TransformLinesIntoSentences(
                         new TransformAzureLineIntoSentence(
                             new AzureCreateRelativeCoordinate(new CreateRelativeCoordinate()))),
-                    new SortIntoLogicalLines()));
+                    new SortIntoLogicalLines(), new GetLinesOrDefaultOrderedByTopPosition()));
         }
 
         /// <summary>

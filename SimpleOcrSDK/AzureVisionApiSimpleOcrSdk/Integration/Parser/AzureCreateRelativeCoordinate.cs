@@ -4,7 +4,12 @@ using OcrMetadata.Tools;
 
 namespace AzureVisionApiSimpleOcrSdk.Integration.Parser
 {
-    public class AzureCreateRelativeCoordinate
+    public interface IAzureCreateRelativeCoordinate
+    {
+        Coordinate Execute(Rectangle rectangle, int imgWidth, int imgHeight);
+    }
+
+    public class AzureCreateRelativeCoordinate : IAzureCreateRelativeCoordinate
     {
         private readonly ICreateRelativeCoordinate _createRelativeCoordinate;
 

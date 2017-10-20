@@ -5,11 +5,16 @@ using OcrMetadata.Model;
 
 namespace AzureVisionApiSimpleOcrSdk.Integration.Parser
 {
-    public class TransformLinesIntoSenteces
+    public interface ITransformLinesIntoSentences
     {
-        private readonly TransformAzureLineIntoSentence _transformAzureLineIntoSentence;
+        List<Sentence> Execute(int height, int width, IOrderedEnumerable<KeyValuePair<Point, List<Line>>> logicalLines);
+    }
 
-        public TransformLinesIntoSenteces(TransformAzureLineIntoSentence transformAzureLineIntoSentence)
+    public class TransformLinesIntoSentences : ITransformLinesIntoSentences
+    {
+        private readonly ITransformAzureLineIntoSentence _transformAzureLineIntoSentence;
+
+        public TransformLinesIntoSentences(ITransformAzureLineIntoSentence transformAzureLineIntoSentence)
         {
             _transformAzureLineIntoSentence = transformAzureLineIntoSentence;
         }

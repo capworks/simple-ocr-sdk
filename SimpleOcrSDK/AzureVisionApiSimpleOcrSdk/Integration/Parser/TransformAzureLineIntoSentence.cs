@@ -5,11 +5,16 @@ using Word = Microsoft.ProjectOxford.Vision.Contract.Word;
 
 namespace AzureVisionApiSimpleOcrSdk.Integration.Parser
 {
-    public class TransformAzureLineIntoSentence
+    public interface ITransformAzureLineIntoSentence
     {
-        private readonly AzureCreateRelativeCoordinate _createRelativeCoordinate;
+        Sentence Execute(Line line, int lineCount, int imgWidth, int imgHeight, int index);
+    }
 
-        public TransformAzureLineIntoSentence(AzureCreateRelativeCoordinate createRelativeCoordinate)
+    public class TransformAzureLineIntoSentence : ITransformAzureLineIntoSentence
+    {
+        private readonly IAzureCreateRelativeCoordinate _createRelativeCoordinate;
+
+        public TransformAzureLineIntoSentence(IAzureCreateRelativeCoordinate createRelativeCoordinate)
         {
             _createRelativeCoordinate = createRelativeCoordinate;
         }

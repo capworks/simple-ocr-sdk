@@ -4,7 +4,12 @@ using Microsoft.ProjectOxford.Vision.Contract;
 
 namespace AzureVisionApiSimpleOcrSdk.Integration.Parser
 {
-    public class SortIntoLogicalLines
+    public interface ISortIntoLogicalLines
+    {
+        IOrderedEnumerable<KeyValuePair<Point, List<Line>>> Execute(IEnumerable<Line> azureLines);
+    }
+
+    public class SortIntoLogicalLines : ISortIntoLogicalLines
     {
         public IOrderedEnumerable<KeyValuePair<Point, List<Line>>> Execute(IEnumerable<Line> azureLines)
         {
