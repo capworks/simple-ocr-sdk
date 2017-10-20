@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using AzureVisionApiSimpleOcrSdk.Integration;
+using AzureVisionApiSimpleOcrSdk.Integration.Parser;
 using AzureVisionApiSimpleOcrSdk.Model;
 using OcrMetadata;
 using OcrMetadata.Exceptions;
@@ -22,10 +23,14 @@ namespace AzureVisionApiSimpleOcrSdk
             _ocrPreProcessing = ocrPreProcessing;
             _azureOcrParser = azureOcrParser;
         }
-
         public static AzureOcrEngine Build(IAzureVisionConfigurations configurations)
         {
-            return new AzureOcrEngine(new AzureOcrApi(configurations), OcrPreProcessing.Build(), new AzureOcrParser());
+            return new AzureOcrEngine(new AzureOcrApi(configurations), OcrPreProcessing.Build(),
+                new AzureOcrParser(
+                    new TransformLinesIntoSenteces(
+                        new TransformAzureLineIntoSentence(
+                            new AzureCreateRelativeCoordinate(new CreateRelativeCoordinate()))),
+                    new SortIntoLogicalLines()));
         }
 
         /// <summary>
