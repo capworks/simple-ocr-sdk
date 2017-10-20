@@ -1,13 +1,14 @@
 using Microsoft.ProjectOxford.Vision.Contract;
 using OcrMetadata.Model;
+using OcrMetadata.Tools;
 
 namespace AzureVisionApiSimpleOcrSdk.Integration.Parser
 {
     public class AzureCreateRelativeCoordinate
     {
-        private readonly CreateRelativeCoordinate _createRelativeCoordinate;
+        private readonly ICreateRelativeCoordinate _createRelativeCoordinate;
 
-        public AzureCreateRelativeCoordinate(CreateRelativeCoordinate createRelativeCoordinate)
+        public AzureCreateRelativeCoordinate(ICreateRelativeCoordinate createRelativeCoordinate)
         {
             _createRelativeCoordinate = createRelativeCoordinate;
         }

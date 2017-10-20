@@ -3,7 +3,12 @@ using OcrMetadata.Model;
 
 namespace OcrMetadata.Tools
 {
-    public class CreateRelativeCoordinate
+    public interface ICreateRelativeCoordinate
+    {
+        Coordinate Execute(double x, double y, double height, double width, double imgWidth, double imgHeight);
+    }
+
+    public class CreateRelativeCoordinate : ICreateRelativeCoordinate
     {
         public Coordinate Execute(double x, double y, double height, double width, double imgWidth, double imgHeight)
         {

@@ -76,7 +76,6 @@
     <Compile Include="Integration\Parser\AzureCreateRelativeCoordinateTest.cs" />
     <Compile Include="Integration\AzureOcrApiTest.cs" />
     <Compile Include="Integration\Parser\AzureOcrParserTest.cs" />
-    <Compile Include="Integration\Parser\CreateRelativeCoordinateTest.cs" />
     <Compile Include="Integration\Parser\PointTest.cs" />
     <Compile Include="Integration\Parser\SortIntoLogicalLinesTest.cs" />
     <Compile Include="Integration\Parser\TransformAzureLineIntoSentenceTest.cs" />

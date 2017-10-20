@@ -43,7 +43,6 @@
   <ItemGroup>
     <Compile Include="Integration\Parser\AzureCreateRelativeCoordinate.cs" />
     <Compile Include="Integration\Parser\AzureOcrParser.cs" />
-    <Compile Include="Integration\Parser\CreateRelativeCoordinate.cs" />
     <Compile Include="Integration\Parser\Point.cs" />
     <Compile Include="Integration\Parser\SortIntoLogicalLines.cs" />
     <Compile Include="Integration\Parser\TransformAzureLineIntoSentence.cs" />
