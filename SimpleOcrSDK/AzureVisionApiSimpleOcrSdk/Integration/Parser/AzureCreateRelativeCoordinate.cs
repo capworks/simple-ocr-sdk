@@ -12,6 +12,7 @@ namespace AzureVisionApiSimpleOcrSdk.Integration.Parser
         {
             _createRelativeCoordinate = createRelativeCoordinate;
         }
+
         public Coordinate Execute(Rectangle word, int imgWidth, int imgHeight)
         {
             double x = word.Left;
@@ -19,7 +20,7 @@ namespace AzureVisionApiSimpleOcrSdk.Integration.Parser
             double height = word.Height;
             double width = word.Width;
 
-            return _createRelativeCoordinate.Execute(x, y, height, width, imgWidth, imgHeight);
+            return _createRelativeCoordinate.Execute(x, y, height, width, imgHeight, imgWidth);
         }
     }
 }

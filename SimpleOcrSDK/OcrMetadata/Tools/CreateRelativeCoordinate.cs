@@ -5,12 +5,12 @@ namespace OcrMetadata.Tools
 {
     public interface ICreateRelativeCoordinate
     {
-        Coordinate Execute(double x, double y, double height, double width, double imgWidth, double imgHeight);
+        Coordinate Execute(double x, double y, double height, double width, double imgHeight, double imgWidth);
     }
 
     public class CreateRelativeCoordinate : ICreateRelativeCoordinate
     {
-        public Coordinate Execute(double x, double y, double height, double width, double imgWidth, double imgHeight)
+        public Coordinate Execute(double x, double y, double height, double width, double imgHeight, double imgWidth)
         {
             var xRelative = Math.Round(x / imgWidth, 3);
             var widthRelative = Math.Round(width / imgWidth, 3);
