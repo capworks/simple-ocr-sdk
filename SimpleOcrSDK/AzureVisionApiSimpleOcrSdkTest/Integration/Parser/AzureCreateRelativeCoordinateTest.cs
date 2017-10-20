@@ -25,7 +25,7 @@ namespace AzureVisionApiSimpleOcrSdkTest.Integration.Parser
         public void GivenARectangle_WhenCallingExecute_ThenValuesAreCorrectlyParsedOntoCreateRelativeCoordinateAndTheResultIsReturned()
         {
             //Arrange
-            var expectedResult = new Coordinate(1,1,1,1);
+            var expectedResult = new Coordinate(1, 1, 1, 1);
             int x = 5,
                 y = 10,
                 height = 4,
