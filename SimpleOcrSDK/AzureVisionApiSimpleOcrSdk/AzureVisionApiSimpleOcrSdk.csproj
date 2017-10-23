@@ -41,8 +41,10 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Integration\Parser\AddSentencesAndReturnNewIndex.cs" />
     <Compile Include="Integration\Parser\AzureCreateRelativeCoordinate.cs" />
     <Compile Include="Integration\Parser\AzureOcrParser.cs" />
+    <Compile Include="Integration\Parser\CreateWordFromAzureWord.cs" />
     <Compile Include="Integration\Parser\GetLinesOrderedByTopPosition.cs" />
     <Compile Include="Integration\Parser\Point.cs" />
     <Compile Include="Integration\Parser\SortIntoLogicalLines.cs" />

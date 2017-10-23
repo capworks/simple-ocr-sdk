@@ -9,17 +9,17 @@ namespace OcrMetadata.Model
         /// <summary>
         /// All sentences found on the image
         /// </summary>
-        List<Sentence> Sentences { get; }
+        List<ISentence> Sentences { get; }
 
         /// <summary>
         /// All words found on the image.
         /// </summary>
-        List<Word> Words { get; }
+        List<IWord> Words { get; }
 
         /// <summary>
         /// All lines found on the image. Dictionary with zero index line numbers as key, and list of sentences as value.
         /// </summary>
-        Dictionary<int, List<Sentence>> Lines { get; set; }
+        Dictionary<int, List<ISentence>> Lines { get; set; }
 
         /// <summary>
         /// Get the content as a plain text string on one line.
@@ -45,15 +45,15 @@ namespace OcrMetadata.Model
     public class ImageContent : IImageContent
     {
         /// <inheritdoc />
-        public List<Sentence> Sentences { get; }
+        public List<ISentence> Sentences { get; }
 
         /// <inheritdoc />
-        public List<Word> Words { get;  }
+        public List<IWord> Words { get;  }
 
         /// <inheritdoc />
-        public Dictionary<int, List<Sentence>> Lines { get; set; }
+        public Dictionary<int, List<ISentence>> Lines { get; set; }
 
-        public ImageContent(List<Sentence> sentences)
+        public ImageContent(List<ISentence> sentences)
         {
             Sentences = sentences ?? throw new ArgumentNullException(nameof(sentences));
             Words = Sentences.SelectMany(x => x.Words).ToList();
@@ -72,7 +72,7 @@ namespace OcrMetadata.Model
             return Lines.Aggregate("", (current, wd) => current + (string.IsNullOrEmpty(current)? "" : "\n") + GetAggregatedValue(wd.Value, sentenceSeperator));
         }
 
-        private static string GetAggregatedValue(IEnumerable<Sentence> sentences, string sentenceSeperator)
+        private static string GetAggregatedValue(IEnumerable<ISentence> sentences, string sentenceSeperator)
         {
             return sentences.Aggregate("", (current, wd) => current + (string.IsNullOrEmpty(current) ? "" : sentenceSeperator) + wd.Value);
         }

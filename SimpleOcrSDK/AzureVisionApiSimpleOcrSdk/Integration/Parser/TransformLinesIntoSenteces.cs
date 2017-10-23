@@ -1,5 +1,5 @@
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.ProjectOxford.Vision.Contract;
 using OcrMetadata.Model;
 
@@ -7,32 +7,30 @@ namespace AzureVisionApiSimpleOcrSdk.Integration.Parser
 {
     public interface ITransformLinesIntoSentences
     {
-        List<Sentence> Execute(int height, int width, IOrderedEnumerable<KeyValuePair<Point, List<Line>>> logicalLines);
+        List<ISentence> Execute(int height, int width, IEnumerable<KeyValuePair<Point, List<Line>>> logicalLines);
     }
 
     public class TransformLinesIntoSentences : ITransformLinesIntoSentences
     {
-        private readonly ITransformAzureLineIntoSentence _transformAzureLineIntoSentence;
+        private readonly IAddSentencesAndReturnNewIndex _addSentencesAndReturnNewIndex;
 
-        public TransformLinesIntoSentences(ITransformAzureLineIntoSentence transformAzureLineIntoSentence)
+        public TransformLinesIntoSentences(IAddSentencesAndReturnNewIndex addSentencesAndReturnNewIndex)
         {
-            _transformAzureLineIntoSentence = transformAzureLineIntoSentence;
+            _addSentencesAndReturnNewIndex = addSentencesAndReturnNewIndex;
         }
 
-        public List<Sentence> Execute(int height, int width, IOrderedEnumerable<KeyValuePair<Point, List<Line>>> logicalLines)
+        public List<ISentence> Execute(int height, int width,
+            IEnumerable<KeyValuePair<Point, List<Line>>> logicalLines)
         {
-            var sentences = new List<Sentence>();
+            if (logicalLines == null) throw new ArgumentNullException(nameof(logicalLines));
+
+            var sentences = new List<ISentence>();
             int lineCount = 0,
                 sentenceIndex = 0;
             foreach (var line in logicalLines)
             {
-                var orderedLine = line.Value.OrderBy(x => x.Rectangle.Left);
-                foreach (var azureline in orderedLine)
-                {
-                    var sentence = _transformAzureLineIntoSentence.Execute(azureline, lineCount, width, height, sentenceIndex);
-                    sentences.Add(sentence);
-                    sentenceIndex++;
-                }
+                sentenceIndex =
+                    _addSentencesAndReturnNewIndex.Execute(height, width, line, lineCount, sentenceIndex, sentences);
                 lineCount++;
             }
             return sentences;

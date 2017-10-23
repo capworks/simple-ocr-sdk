@@ -31,7 +31,7 @@ namespace AzureVisionApiSimpleOcrSdk.Integration.Parser
 
             var azureLines = _getLinesOrderedByTopPosition.Execute(ocrOutput);
             if(azureLines == null)
-                return new ImageContent(new List<Sentence>());
+                return new ImageContent(new List<ISentence>());
 
             var lines = _sortIntoLogicalLines.Execute(azureLines);
             var sentences = _transformLinesIntoSentences.Execute(height, width, lines);

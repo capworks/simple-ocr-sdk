@@ -26,11 +26,11 @@ namespace AzureVisionApiSimpleOcrSdk
         }
         public static AzureOcrEngine Build(IAzureVisionConfigurations configurations)
         {
+            var createCoords = new AzureCreateRelativeCoordinate(new CreateRelativeCoordinate());
             return new AzureOcrEngine(new AzureOcrApi(configurations), OcrPreProcessing.Build(),
                 new AzureOcrParser(
-                    new TransformLinesIntoSentences(
-                        new TransformAzureLineIntoSentence(
-                            new AzureCreateRelativeCoordinate(new CreateRelativeCoordinate()))),
+                    new TransformLinesIntoSentences(new AddSentencesAndReturnNewIndex(
+                        new TransformAzureLineIntoSentence(createCoords, new CreateWordFromAzureWord(createCoords)))),
                     new SortIntoLogicalLines(), new GetLinesOrderedByTopPosition()));
         }
 

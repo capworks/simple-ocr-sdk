@@ -2,16 +2,25 @@ using System;
 
 namespace OcrMetadata.Model
 {
-    public class Word
+    public interface IWord
     {
         /// <summary>
         /// Relative coordinate
         /// </summary>
-        public Coordinate Coordinate { get; protected set; }
+        Coordinate Coordinate { get; }
 
         /// <summary>
         /// The text value
         /// </summary>
+        string Value { get; }
+    }
+
+    public class Word : IWord
+    {
+        /// <inheritdoc />
+        public Coordinate Coordinate { get; protected set; }
+
+        /// <inheritdoc />
         public string Value { get; protected set; }
 
         public Word(Coordinate coordinate, string value)
