@@ -56,7 +56,7 @@ namespace AzureVisionApiSimpleOcrSdkTest.Integration.Parser
             var logicalLines = new Mock<IOrderedEnumerable<KeyValuePair<Point, List<Line>>>>().Object;
             _sortIntoLogicalLines.Setup(x => x.Execute(azureLines)).Returns(logicalLines);
 
-            var sentences = new List<Sentence>();
+            var sentences = new List<ISentence>();
             _transformLinesIntoSenteces.Setup(x => x.Execute(height, width, logicalLines)).Returns(sentences);
 
             //Act

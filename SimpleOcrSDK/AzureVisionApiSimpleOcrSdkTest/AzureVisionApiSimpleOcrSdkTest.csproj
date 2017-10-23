@@ -65,9 +65,10 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Integration\Parser\AddSentencesAndReturnNewIndexTest.cs" />
     <Compile Include="Integration\Parser\AzureCreateRelativeCoordinateTest.cs" />
-    <Compile Include="Integration\AzureOcrApiTest.cs" />
     <Compile Include="Integration\Parser\AzureOcrParserTest.cs" />
+    <Compile Include="Integration\Parser\CreateWordFromAzureWordTest.cs" />
     <Compile Include="Integration\Parser\GetLinesOrderedByTopPositionTest.cs" />
     <Compile Include="Integration\Parser\PointTest.cs" />
     <Compile Include="Integration\Parser\SortIntoLogicalLinesTest.cs" />
