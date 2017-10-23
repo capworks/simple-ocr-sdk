@@ -41,7 +41,15 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Integration\AzureOcrParser.cs" />
+    <Compile Include="Integration\Parser\AddSentencesAndReturnNewIndex.cs" />
+    <Compile Include="Integration\Parser\AzureCreateRelativeCoordinate.cs" />
+    <Compile Include="Integration\Parser\AzureOcrParser.cs" />
+    <Compile Include="Integration\Parser\CreateWordFromAzureWord.cs" />
+    <Compile Include="Integration\Parser\GetLinesOrderedByTopPosition.cs" />
+    <Compile Include="Integration\Parser\Point.cs" />
+    <Compile Include="Integration\Parser\SortIntoLogicalLines.cs" />
+    <Compile Include="Integration\Parser\TransformAzureLineIntoSentence.cs" />
+    <Compile Include="Integration\Parser\TransformLinesIntoSenteces.cs" />
     <Compile Include="Model\AzureOcrResult.cs" />
     <Compile Include="Integration\AzureOcrApi.cs" />
     <Compile Include="Exceptions\AzureOcrException.cs" />

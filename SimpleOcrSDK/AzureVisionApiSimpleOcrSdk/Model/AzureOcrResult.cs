@@ -5,13 +5,13 @@ namespace AzureVisionApiSimpleOcrSdk.Model
 {
     public class AzureOcrResult : OcrResult
     {
-        protected AzureOcrResult(TimeSpan processTime, ImageContent imageContent, Exception error,
+        protected AzureOcrResult(TimeSpan processTime, IImageContent imageContent, Exception error,
             RawAzureOcrResult rawAzureOcrResult) : base(processTime, imageContent, error)
         {
             RawResult = rawAzureOcrResult;
         }
 
-        public static AzureOcrResult CreateSuccesResult(TimeSpan processTime, ImageContent imageContent, RawAzureOcrResult rawAzureOcrResult)
+        public static AzureOcrResult CreateSuccesResult(TimeSpan processTime, IImageContent imageContent, RawAzureOcrResult rawAzureOcrResult)
         {
             if (imageContent == null) throw new ArgumentNullException(nameof(imageContent));
             if (rawAzureOcrResult == null) throw new ArgumentNullException(nameof(rawAzureOcrResult));

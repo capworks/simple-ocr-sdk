@@ -12,7 +12,7 @@ namespace SimpleGoogleOcrSDK.GoogleIntegration
     {
         public ImageContent Execute(RawGoogleOcrResult output, int imgHeight, int imgWidth)
         {
-            var sentences = new List<Sentence>();
+            var sentences = new List<ISentence>();
             if (!output.TextFound()) return new ImageContent(sentences);
 
             var words = output?.EntityAnnotations?.ToList().Skip(1).Select(AsWord).Where(x => x != null).OrderBy(x => x.Top).ToList() ?? new List<GoogleWord>();
@@ -88,9 +88,9 @@ namespace SimpleGoogleOcrSDK.GoogleIntegration
 
             var words = line.Select(word => new Word(CreateRelativeCoordinate(word, imgWidth, imgHeight), word.Description)).ToList();
 
-            var sentences = new List<List<Word>>();
+            var sentences = new List<List<IWord>>();
             var last = words[0];
-            sentences.Add(new List<Word>() { last });
+            sentences.Add(new List<IWord>() { last });
 
             for (var i = 1; i < words.Count; i++)
             {
@@ -101,7 +101,7 @@ namespace SimpleGoogleOcrSDK.GoogleIntegration
                 }
                 else
                 {
-                    sentences.Add(new List<Word>() { word });
+                    sentences.Add(new List<IWord>() { word });
                 }
 
                 last = word;
@@ -117,7 +117,7 @@ namespace SimpleGoogleOcrSDK.GoogleIntegration
             return result;
         }
 
-        private static Coordinate GetCoordsForSentence(IEnumerable<Word> sentence)
+        private static Coordinate GetCoordsForSentence(IEnumerable<IWord> sentence)
         {
             var xCoord = sentence.Min(x => x.Coordinate.X);
             var yCoord = sentence.Min(x => x.Coordinate.Y);

@@ -5,7 +5,7 @@ namespace OcrMetadata.Model
     public interface IOcrResult
     {
         TimeSpan ProcessTime { get; }
-        ImageContent Content { get; }
+        IImageContent Content { get; }
         Exception Error { get; }
         bool HasError { get; }
         bool TextFound { get; }
@@ -13,7 +13,7 @@ namespace OcrMetadata.Model
 
     public abstract class OcrResult : IOcrResult
     {
-        protected OcrResult(TimeSpan processTime, ImageContent imageContent, Exception error)
+        protected OcrResult(TimeSpan processTime, IImageContent imageContent, Exception error)
         {
             ProcessTime = processTime;
             Content = imageContent;
@@ -21,7 +21,7 @@ namespace OcrMetadata.Model
         }
 
         public TimeSpan ProcessTime { get; }
-        public ImageContent Content { get; }
+        public IImageContent Content { get; }
         public Exception Error { get; }
         public bool HasError => Error != null;
         public bool TextFound => Content != null && Content.TextFound();
