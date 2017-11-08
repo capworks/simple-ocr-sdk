@@ -86,7 +86,7 @@ namespace TransymOcrSdk
             }
         }
 
-        public Bitmap PreProcess(Bitmap src)
+        private Bitmap PreProcess(Bitmap src)
         {
             _ocrPreProcessing.AdjustImageOrientation(src);
             src = _ocrPreProcessing.RemoveTransparency(src);

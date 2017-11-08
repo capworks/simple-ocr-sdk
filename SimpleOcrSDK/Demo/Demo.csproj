@@ -66,6 +66,10 @@
       <Project>{A64BC1BA-0EC8-4155-834D-3C85F2E31282}</Project>
       <Name>SimpleGoogleOcrSDK</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TransymOcrSdk\TransymOcrSdk.csproj">
+      <Project>{E35F18DA-E32A-4A9A-9F02-A644C4D68D2F}</Project>
+      <Name>TransymOcrSdk</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
