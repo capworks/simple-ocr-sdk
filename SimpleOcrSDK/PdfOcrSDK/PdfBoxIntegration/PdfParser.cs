@@ -34,7 +34,7 @@ namespace PdfOcrSDK.PdfBoxIntegration
                 .Select(line => list.Where(x => Math.Abs(x.Top - line) < double.Epsilon).OrderBy(x => x.Left).ToList())
                 .ToList();
 
-            var result = new List<Sentence>();
+            var result = new List<ISentence>();
             var lineCount = 0;
             var index = 0;
 
@@ -76,7 +76,7 @@ namespace PdfOcrSDK.PdfBoxIntegration
             return isNewSentence;
         }
 
-        private void AddNewSentence(List<CharItem> temp, int line, List<Sentence> result, ref int index,
+        private void AddNewSentence(List<CharItem> temp, int line, List<ISentence> result, ref int index,
             double imgHeight, double imgWidth)
         {
             Trim(temp);
@@ -86,7 +86,7 @@ namespace PdfOcrSDK.PdfBoxIntegration
             var start = temp.First();
             var end = temp.Last();
 
-            var wordList = new List<Word>();
+            var wordList = new List<IWord>();
             var words = value.Split(' ');
             var i = 0;
             foreach (var word in words)

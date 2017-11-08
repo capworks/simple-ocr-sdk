@@ -3,41 +3,59 @@ using System.Collections.Generic;
 
 namespace OcrMetadata.Model
 {
+    public interface ISentence
+    {
+        /// <summary>
+        /// Sentence index
+        /// </summary>
+        int Index { get; }
+
+        /// <summary>
+        /// Zero index line number
+        /// </summary>
+        int Line { get; }
+
+        /// <summary>
+        /// The aggreageted text values of the containing words.
+        /// </summary>
+        string Value { get; set; }
+
+        /// <summary>
+        /// Relative coordinate
+        /// </summary>
+        Coordinate Coords { get; }
+
+        /// <summary>
+        /// List of words the sentence consists of
+        /// </summary>
+        List<IWord> Words { get; }
+    }
+
     /// <summary>
     /// A Sentence in this context is not a grammatical sentence. 
     /// It's a collection of words on a horizontal line, 
     /// without any whitespaces larger then max a few spaces 
     /// (exact measure depending on font and image quality). 
     /// </summary>
-    public class Sentence
+    public class Sentence : ISentence
     {
-        /// <summary>
-        /// Sentence index
-        /// </summary>
+        /// <inheritdoc />
         public int Index { get; protected set; }
 
-        /// <summary>
-        /// Zero index line number
-        /// </summary>
+        /// <inheritdoc />
         public int Line { get; protected set; }
 
 
-        /// <summary>
-        /// The aggreageted text values of the containing words.
-        /// </summary>
+        /// <inheritdoc />
         public string Value { get; set; }
 
-        /// <summary>
-        /// Relative coordinate
-        /// </summary>
+        /// <inheritdoc />
         public Coordinate Coords { get; protected set; }
 
-        /// <summary>
-        /// List of words the sentence consists of
-        /// </summary>
-        public List<Word> Words { get; protected set; }
+        /// <inheritdoc />
+        public List<IWord> Words { get; protected set; }
 
-        public Sentence(List<Word> words, Coordinate coordinate, string value, int line, int index)
+        public Sentence(List<IWord> words, Coordinate coordinate, string value, int line, int index)
         {
             if (words == null || words.Count == 0) throw new ArgumentNullException(nameof(words));
             if (string.IsNullOrWhiteSpace(value)) throw new ArgumentNullException(nameof(value));
