@@ -4,17 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D7E2F0DB-7829-44BC-A1F4-8C6A1AB85FA6}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>Demo</RootNamespace>
-    <AssemblyName>Demo</AssemblyName>
+    <ProjectGuid>{E35F18DA-E32A-4A9A-9F02-A644C4D68D2F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TransymOcrSdk</RootNamespace>
+    <AssemblyName>TransymOcrSdk</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +23,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -35,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,32 +42,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Exceptions\TransymException.cs" />
+    <Compile Include="Integration\Parser\TransymCreateRelativeCoordinate.cs" />
+    <Compile Include="Integration\Parser\TransymParser.cs" />
+    <Compile Include="Model\TransymOcrResult.cs" />
+    <Compile Include="Model\RawTransymOcrResult.cs" />
+    <Compile Include="Model\TOCRdeclares.cs" />
+    <Compile Include="Integration\TransymAccess.cs" />
+    <Compile Include="Model\TOcrResultStructures.cs" />
+    <Compile Include="TransymOcrEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\AzureVisionApiSimpleOcrSdk\AzureVisionApiSimpleOcrSdk.csproj">
-      <Project>{9723A3AC-9828-41EF-864F-0293666DDD08}</Project>
-      <Name>AzureVisionApiSimpleOcrSdk</Name>
-    </ProjectReference>
     <ProjectReference Include="..\OcrMetadata\OcrMetadata.csproj">
-      <Project>{E19DD532-61AF-4F03-93AB-58A5A3AE93A4}</Project>
+      <Project>{e19dd532-61af-4f03-93ab-58a5a3ae93a4}</Project>
       <Name>OcrMetadata</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PdfOcrSDK\PdfOcrSDK.csproj">
-      <Project>{9199D9A0-73EB-491D-91A9-6541DBC5CEF0}</Project>
-      <Name>PdfOcrSDK</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SimpleGoogleOcrSDK\SimpleGoogleOcrSDK.csproj">
-      <Project>{A64BC1BA-0EC8-4155-834D-3C85F2E31282}</Project>
-      <Name>SimpleGoogleOcrSDK</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TransymOcrSdk\TransymOcrSdk.csproj">
-      <Project>{E35F18DA-E32A-4A9A-9F02-A644C4D68D2F}</Project>
-      <Name>TransymOcrSdk</Name>
+    <ProjectReference Include="..\PreProcessing\PreProcessing.csproj">
+      <Project>{e0153af4-f721-4ab6-8e2a-0334ea922827}</Project>
+      <Name>PreProcessing</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

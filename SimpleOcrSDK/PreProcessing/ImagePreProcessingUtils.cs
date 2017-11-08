@@ -4,7 +4,13 @@ using System.Linq;
 
 namespace PreProcessing
 {
-    internal class ImagePreProcessingUtils
+    public interface IImagePreProcessingUtils
+    {
+        Bitmap RemoveTransparency(Bitmap bitmap);
+        bool AdjustImageOrientation(Bitmap src);
+    }
+
+    public class ImagePreProcessingUtils : IImagePreProcessingUtils
     {
         public Bitmap RemoveTransparency(Bitmap bitmap)
         {

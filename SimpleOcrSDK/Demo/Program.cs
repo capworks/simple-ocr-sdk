@@ -6,6 +6,7 @@ using OcrMetadata;
 using OcrMetadata.Model;
 using PdfOcrSDK;
 using SimpleGoogleOcrSDK;
+using TransymOcrSdk;
 
 namespace Demo
 {
@@ -43,9 +44,9 @@ namespace Demo
 
                     if (visionApiChoice == null)
                     {
-                        Console.WriteLine("What vision API do you wish to use, Google or Azure?");
+                        Console.WriteLine("What vision API do you wish to use, Google or Azure? \nOr you can use an installation of Tranym ocr if you have it installed on this machine. \n(Options: azure, google, transym).");
                         while (string.IsNullOrWhiteSpace(visionApiChoice) ||
-                               (visionApiChoice != "google" && visionApiChoice != "azure"))
+                               (visionApiChoice != "google" && visionApiChoice != "azure" && visionApiChoice != "transym"))
                         {
                             visionApiChoice = Console.ReadLine()?.ToLower();
                         }
@@ -66,6 +67,15 @@ namespace Demo
                             azureOcrEngine = GetAzureOcrEngine();
                         }
                         PerformAction(DoAzureOcr(azureOcrEngine, imageFormat, userChoice)).ContinueWith(t => Pause()).Wait();
+                    }
+                    else if (visionApiChoice == "transym")
+                    {
+                        Console.WriteLine("Do you have a licensed Transym installation on this machine? (y/n)\nOtherwise the ocr will fail.");
+                        var isTransymInstalled = Console.ReadLine()?.ToLower();
+                        if (isTransymInstalled == "y")
+                        {
+                            PerformAction(DoTransymOcr(userChoice)).ContinueWith(t => Pause()).Wait();
+                        }
                     }
                 }
             }
@@ -116,6 +126,11 @@ namespace Demo
         private static async Task<OcrResult> DoPdfExtraction(string file)
         {
             return PdfOcrEngine.Build().OcrPdf(file);
+        }
+
+        private static async Task<OcrResult> DoTransymOcr(string file)
+        {
+            return TransymOcrEngine.Build().OcrImage(file);
         }
 
         private static async Task PerformAction(Task<OcrResult> action)
