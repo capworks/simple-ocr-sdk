@@ -15,7 +15,7 @@ The API result will be transformed into a metadata result model with relative co
 ### Limitations
 The current SDK support png, jpeg, jpg and PDF (only 'readable' PDFs).
 
-### PPFs
+### PDFs
 The vision API does not support PDF's where the content is an image (if you open the pdf manually and cannot select text with the cursor). If it's an image PDF or a unsupported PDF type, then the PDF needs to be converted into an image and run throught a OCR engine to extract the text.
 
 If the given PDF is not readble, the OcrResult.Error will contain a PdfNotReadableException.
